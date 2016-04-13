@@ -67,7 +67,7 @@
   [project subtask-name & args]
   (cond (= subtask-name "update-projects")
         (let [version (voom-version project)]
-          (doseq [r (:repos (:unison project))]
+          (doseq [r (remove #(:skip-compatibility? %) (:repos (:unison project)))]
             (println)
             (println (format "Updating repo %s ..." (:git r)))
             (let [branch (or (:branch r) "master")
