@@ -25,7 +25,7 @@
 
 (defn run-sh [& args]
   (let [rets (apply sh args)]
-    (when (or (not (zero? (:exit rets))) (seq (:err rets)))
+    (when (seq (:err rets))
       (println (:err rets))
       (System/exit (:exit rets)))
     rets))
