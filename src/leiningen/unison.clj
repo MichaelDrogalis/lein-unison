@@ -26,8 +26,12 @@
 (defn run-sh [& args]
   (let [rets (apply sh args)]
     (when (seq (:err rets))
+      (println "=== Error ===")
       (println (:err rets))
-      (System/exit (:exit rets)))
+      (when (not (zero? (:exit rets)))
+        (println "=== Exiting, full status ====")
+        (println rets)
+        (System/exit (:exit rets))))
     rets))
 
 (defn git [dir & args]
